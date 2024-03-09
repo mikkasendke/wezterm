@@ -1,0 +1,56 @@
+local wezterm = require("wezterm")
+local act = wezterm.action
+
+local module = {}
+
+local fd = "fd"
+local rootPath = os.getenv("HOME") .. ("/dev/")
+
+module.toggle = function(window, pane)
+  local projects = {}
+  table.insert(projects, { label = "Default", id = "default" })
+
+  local success, stdout, stderr = wezterm.run_child_process({
+    fd,
+    "-HI",
+    "-td",
+    "^.git$",
+    "--max-depth=16",
+    "--prune",
+    rootPath,
+  })
+
+  if not success then
+    wezterm.log_error("Failed to run fd: " .. stderr)
+    return
+  end
+
+  for line in stdout:gmatch("([^\n]*)\n?") do
+    local project = line:sub(1, -7)
+    local label = project
+    local id = project:gsub(".*/", "")
+    table.insert(projects, { label = tostring(label), id = tostring(id) })
+  end
+
+  window:perform_action(
+    act.InputSelector({
+      action = wezterm.action_callback(function(win, _, id, label)
+        if not id and not label then
+          wezterm.log_info("Cancelled")
+        else
+          wezterm.log_info("Selected " .. label)
+          win:perform_action(
+            act.SwitchToWorkspace({ name = id, spawn = { cwd = label } }),
+            pane
+          )
+        end
+      end),
+      fuzzy = true,
+      title = "Select project",
+      choices = projects,
+    }),
+    pane
+  )
+end
+
+return module
