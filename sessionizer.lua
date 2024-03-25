@@ -4,9 +4,20 @@ local act = wezterm.action
 local module = {}
 
 local fd_cmd = "fd"
-local project_path_trimming_strategy = "none" -- none | home | just_project
+
+local project_path_trimming_strategies = {
+    none = 0,
+    home = 1,
+    just_project = 2,
+}
+local project_path_trimming_strategy = project_path_trimming_strategies.none
 
 local home_dir = os.getenv("HOME")
+if not home_dir then
+    wezterm.log_error("HOME is not set")
+end
+
+-- The root path to search for projects
 local project_root_path = home_dir .. ("/dev/")
 
 local base_projects = {}
@@ -15,9 +26,11 @@ table.insert(base_projects, { label = "Default", id = "default" })
 local function add_entry(label, path)
     table.insert(base_projects, { label = label, id = path })
 end
+
 local function add_path(path)
     table.insert(base_projects, { label = path, id = path })
 end
+
 
 -- Add some custom paths
 local config_path = home_dir .. ("/.config")
@@ -25,7 +38,6 @@ add_path(config_path)
 add_path(config_path .. "/wezterm")
 add_path(config_path .. "/nvim")
 add_path(config_path .. "/sway")
-
 
 module.toggle = function(window, pane)
     local currentWorkspace = wezterm.mux.get_active_workspace()
@@ -59,10 +71,10 @@ module.toggle = function(window, pane)
         local id = project_path
         local label = project_path
 
-        if project_path_trimming_strategy == "none" then
-        elseif project_path_trimming_strategy == "home" then
+        if project_path_trimming_strategy == project_path_trimming_strategies.none then
+        elseif project_path_trimming_strategy == project_path_trimming_strategies.home then
             label = project_path:sub(#home_dir + 1)
-        elseif project_path_trimming_strategy == "just_project" then
+        elseif project_path_trimming_strategy == project_path_trimming_strategies.just_project then
             label = project_path:gsub(".*/", "")
         else
             wezterm.log_error("Tried using unknown trim_path_strategy: " .. project_path_trimming_strategy)
@@ -98,14 +110,6 @@ module.toggle = function(window, pane)
         }),
         pane
     )
-end
-
-
-function table.prepend_table(t1, t2)
-    for i = 1, #t2 do
-        table.insert(t1, i, t2[i])
-    end
-    return t1
 end
 
 function table.append_table(t1, t2)
