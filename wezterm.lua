@@ -94,13 +94,23 @@ config.keys = {
         action = wezterm.action { AdjustPaneSize = { "Right", 2 } }
     },
     -- vertical and horizontal are reversed because wez did it that way
-    -- vertical split
+    -- vertical split the keys are like 1, 2
+    {
+        key = "\"",
+        mods = "SUPER",
+        action = wezterm.action { SplitVertical = { domain = "CurrentPaneDomain" } }
+    },
     {
         key = "2",
         mods = "SUPER",
         action = wezterm.action { SplitVertical = { domain = "CurrentPaneDomain" } }
     },
     -- horizontal split
+    {
+        key = "!",
+        mods = "SUPER",
+        action = wezterm.action { SplitHorizontal = { domain = "CurrentPaneDomain" } }
+    },
     {
         key = "1",
         mods = "SUPER",
@@ -112,7 +122,13 @@ config.keys = {
         mods = "SUPER",
         action = wezterm.action { CloseCurrentPane = { confirm = true } }
     },
+    -- those three are like 8, 9, 0
     -- open tab 1
+    {
+        key = "}",
+        mods = "SUPER",
+        action = wezterm.action { ActivateTab = 0 }
+    },
     {
         key = "8",
         mods = "SUPER",
@@ -120,11 +136,21 @@ config.keys = {
     },
     -- open tab 2
     {
+        key = "]",
+        mods = "SUPER",
+        action = wezterm.action { ActivateTab = 1 }
+    },
+    {
         key = "9",
         mods = "SUPER",
         action = wezterm.action { ActivateTab = 1 }
     },
     -- open tab 3
+    {
+        key = "&",
+        mods = "SUPER",
+        action = wezterm.action { ActivateTab = 2 }
+    },
     {
         key = "0",
         mods = "SUPER",
@@ -167,13 +193,13 @@ config.keys = {
     },
     -- next tab
     {
-        key = "]",
+        key = "n",
         mods = "SUPER",
         action = wezterm.action { ActivateTabRelative = 1 }
     },
     -- previous tab
     {
-        key = "[",
+        key = "p",
         mods = "SUPER",
         action = wezterm.action { ActivateTabRelative = -1 }
     },
