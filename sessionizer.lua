@@ -38,6 +38,7 @@ add_path(config_path)
 add_path(config_path .. "/wezterm")
 add_path(config_path .. "/nvim")
 add_path(config_path .. "/sway")
+add_path(config_path .. "/waybar")
 
 module.toggle = function(window, pane)
     local currentWorkspace = wezterm.mux.get_active_workspace()
