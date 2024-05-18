@@ -51,18 +51,20 @@ config.window_padding = {
     bottom = 0,
 }
 
-local rose_pine = wezterm.get_builtin_color_schemes()['rose-pine']
--- local rose_pine = wezterm.get_builtin_color_schemes()['Gruvbox dark, medium (base16)']
--- rose_pine.background = wezterm.color.get_default_colors().background
-rose_pine.background = "161616"
-rose_pine.selection_bg = "555577"
+local colorscheme = wezterm.get_builtin_color_schemes()['rose-pine']
+-- local colorscheme = wezterm.get_builtin_color_schemes()['tokyonight_moon']
+-- local colorscheme = wezterm.get_builtin_color_schemes()['Gruvbox dark, medium (base16)']
 
+
+-- colorscheme.background = wezterm.color.get_default_colors().background
+colorscheme.background = "161616"
+colorscheme.selection_bg = "555577"
 
 config.color_schemes = {
-    ["rose-pine"] = rose_pine
+    ["current-colorscheme"] = colorscheme
 }
 
-config.color_scheme = "rose-pine"
+config.color_scheme = "current-colorscheme"
 
 config.window_background_opacity = 0.85
 local function switch_opacity(window)
