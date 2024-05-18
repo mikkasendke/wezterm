@@ -52,6 +52,7 @@ config.window_padding = {
 }
 
 local rose_pine = wezterm.get_builtin_color_schemes()['rose-pine']
+-- local rose_pine = wezterm.get_builtin_color_schemes()['Gruvbox dark, medium (base16)']
 -- rose_pine.background = wezterm.color.get_default_colors().background
 rose_pine.background = "161616"
 rose_pine.selection_bg = "555577"
