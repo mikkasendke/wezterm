@@ -10,7 +10,10 @@ local project_path_trimming_strategies = {
     home = 1,
     just_project = 2,
 }
+
 local project_path_trimming_strategy = project_path_trimming_strategies.none
+
+local custom_entries_at_top = false
 
 local home_dir = os.getenv("HOME")
 if not home_dir then
@@ -81,8 +84,12 @@ module.toggle = function(window, pane)
             wezterm.log_error("Tried using unknown trim_path_strategy: " .. project_path_trimming_strategy)
         end
 
-
-        table.insert(projects, { label = label, id = id })
+        if custom_entries_at_top then
+            table.insert(projects, { label = label, id = id })
+        else
+            local insert_id = (wezterm.GLOBAL.most_recent_workspace and 3 or 2)
+            table.insert(projects, insert_id, { label = label, id = id })
+        end
     end
 
 
@@ -111,6 +118,21 @@ module.toggle = function(window, pane)
         }),
         pane
     )
+end
+
+module.goto_most_recent = function(window, pane)
+    if not wezterm.GLOBAL.most_recent_workspace then
+        return
+    end
+    local currentWorkspace = wezterm.mux.get_active_workspace()
+    window:perform_action(
+        act.SwitchToWorkspace({
+            name = wezterm.GLOBAL.most_recent_workspace,
+            spawn = { cwd = wezterm.GLOBAL.most_recent_workspace },
+        }),
+        pane
+    )
+    wezterm.GLOBAL.most_recent_workspace = currentWorkspace
 end
 
 function table.append_table(t1, t2)

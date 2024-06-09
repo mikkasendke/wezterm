@@ -15,7 +15,11 @@ config.audible_bell = "Disabled"
 config.check_for_updates = false
 
 config.font = wezterm.font_with_fallback {
+    -- { family = "SF Mono", weight = 400 },
+    -- { family = "RobotoMonoNerdFont", weight = 400 },
     { family = "Fira Mono Nerd Font", weight = 400 },
+    -- { family = "JetBrainsMonoNL", weight = 400 },
+    -- { family = "IosevkaNerdFont", weight = 400 },
     { family = "nonicons" } -- for the icons
 }
 
@@ -24,7 +28,6 @@ config.font_size = 17.3
 config.default_prog = {
     "/bin/zsh",
 }
-
 
 config.adjust_window_size_when_changing_font_size = false
 
@@ -105,6 +108,11 @@ config.keys = {
         key = "s",
         mods = "ALT",
         action = wezterm.action_callback(sessionizer.toggle),
+    },
+    {
+        key = "m",
+        mods = "ALT",
+        action = wezterm.action_callback(sessionizer.goto_most_recent),
     },
     -- full screen pane
     {
@@ -248,7 +256,8 @@ config.keys = {
         mods = "ALT",
         action = wezterm.action { ActivateTabRelative = -1 }
     },
-    { key = 'L', mods = 'CTRL', action = wezterm.action.ShowDebugOverlay },
+    { key = 'L', mods = 'CTRL|ALT',   action = wezterm.action.ShowDebugOverlay },
+    { key = 'L', mods = 'CTRL|SHIFT', action = wezterm.action_callback(function() end) },
     {
         key = "t",
         mods = "ALT",
