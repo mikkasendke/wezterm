@@ -1,4 +1,4 @@
-local wezterm = require 'wezterm'
+local wezterm = require "wezterm"
 
 local config = {}
 
@@ -54,9 +54,9 @@ config.window_padding = {
     bottom = 0,
 }
 
-local colorscheme = wezterm.get_builtin_color_schemes()['rose-pine']
--- local colorscheme = wezterm.get_builtin_color_schemes()['tokyonight_moon']
--- local colorscheme = wezterm.get_builtin_color_schemes()['Gruvbox dark, medium (base16)']
+local colorscheme = wezterm.get_builtin_color_schemes()["rose-pine"]
+-- local colorscheme = wezterm.get_builtin_color_schemes()["tokyonight_moon"]
+-- local colorscheme = wezterm.get_builtin_color_schemes()["Gruvbox dark, medium (base16)"]
 
 
 -- colorscheme.background = wezterm.color.get_default_colors().background
@@ -256,12 +256,11 @@ config.keys = {
         mods = "ALT",
         action = wezterm.action { ActivateTabRelative = -1 }
     },
-    { key = 'L', mods = 'CTRL|ALT',   action = wezterm.action.ShowDebugOverlay },
-    { key = 'L', mods = 'CTRL|SHIFT', action = wezterm.action_callback(function() end) },
+    { key = "l", mods = "ALT", action = wezterm.action.ShowDebugOverlay },
     {
         key = "t",
         mods = "ALT",
-        action = wezterm.action.SpawnTab 'CurrentPaneDomain',
+        action = wezterm.action.SpawnTab "CurrentPaneDomain",
     },
 }
 
