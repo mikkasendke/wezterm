@@ -15,9 +15,9 @@ config.audible_bell = "Disabled"
 config.check_for_updates = false
 
 config.font = wezterm.font_with_fallback {
-    -- { family = "SF Mono", weight = 400 },
+    { family = "SF Mono", weight = 400 },
     -- { family = "RobotoMonoNerdFont", weight = 400 },
-    { family = "Fira Mono Nerd Font", weight = 400 },
+    -- { family = "Fira Mono Nerd Font", weight = 400 },
     -- { family = "JetBrainsMonoNL", weight = 400 },
     -- { family = "IosevkaNerdFont", weight = 400 },
     { family = "nonicons" } -- for the icons
@@ -93,6 +93,8 @@ end
 
 local sessionizer = require("sessionizer")
 
+config.disable_default_key_bindings = true
+
 config.keys = {
     {
         key = "o",
@@ -124,22 +126,22 @@ config.keys = {
     {
         key = "h",
         mods = "ALT|SHIFT",
-        action = wezterm.action { AdjustPaneSize = { "Left", 2 } }
+        action = wezterm.action { AdjustPaneSize = { "Left", 1 } }
     },
     {
         key = "j",
         mods = "ALT|SHIFT",
-        action = wezterm.action { AdjustPaneSize = { "Down", 2 } }
+        action = wezterm.action { AdjustPaneSize = { "Down", 1 } }
     },
     {
         key = "k",
         mods = "ALT|SHIFT",
-        action = wezterm.action { AdjustPaneSize = { "Up", 2 } }
+        action = wezterm.action { AdjustPaneSize = { "Up", 1 } }
     },
     {
         key = "l",
         mods = "ALT|SHIFT",
-        action = wezterm.action { AdjustPaneSize = { "Right", 2 } }
+        action = wezterm.action { AdjustPaneSize = { "Right", 1 } }
     },
     -- vertical and horizontal are reversed because wez did it that way
     -- vertical split the keys are like 1, 2
@@ -256,11 +258,79 @@ config.keys = {
         mods = "ALT",
         action = wezterm.action { ActivateTabRelative = -1 }
     },
-    { key = "l", mods = "ALT", action = wezterm.action.ShowDebugOverlay },
+    { key = "l", mods = "CTRL|ALT", action = wezterm.action.ShowDebugOverlay },
     {
         key = "t",
         mods = "ALT",
         action = wezterm.action.SpawnTab "CurrentPaneDomain",
+    },
+    -- copy mode
+    {
+        key = "x",
+        mods = "ALT",
+        action = wezterm.action.ActivateCopyMode,
+    },
+    -- search mode
+    {
+        key = "f",
+        mods = "ALT",
+        action = wezterm.action.Search { CaseSensitiveString = "" },
+    },
+    -- copy paste
+    {
+        key = "c",
+        mods = "CTRL|SHIFT",
+        action = wezterm.action.CopyTo "Clipboard",
+    },
+    {
+        key = "c",
+        mods = "ALT",
+        action = wezterm.action.CopyTo "Clipboard",
+    },
+    {
+        key = "v",
+        mods = "CTRL|SHIFT",
+        action = wezterm.action.PasteFrom "Clipboard",
+    },
+    {
+        key = "v",
+        mods = "ALT",
+        action = wezterm.action.PasteFrom "Clipboard",
+    },
+    {
+        key = "+",
+        mods = "ALT",
+        action = wezterm.action.IncreaseFontSize,
+    },
+    {
+        key = "-",
+        mods = "ALT",
+        action = wezterm.action.DecreaseFontSize,
+    },
+    -- { Don't like it
+    --     key = "k",
+    --     mods = "ALT",
+    --     action = wezterm.action.ClearScrollback "ScrollbackOnly",
+    -- },
+    {
+        key = "p",
+        mods = "ALT|SHIFT",
+        action = wezterm.action.ActivateCommandPalette,
+    },
+    {
+        key = "u",
+        mods = "ALT",
+        action = wezterm.action.CharSelect,
+    },
+    {
+        key = "i",
+        mods = "ALT",
+        action = wezterm.action.QuickSelect,
+    },
+    {
+        key = "Tab",
+        mods = "ALT",
+        action = wezterm.action.ActivateTabRelative(1),
     },
 }
 
