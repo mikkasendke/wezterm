@@ -15,18 +15,18 @@ config.audible_bell = "Disabled"
 config.check_for_updates = false
 
 config.font = wezterm.font_with_fallback {
-    { family = "SF Mono", weight = 400 },
+    -- { family = "SF Mono", weight = 400 },
     -- { family = "RobotoMonoNerdFont", weight = 400 },
     -- { family = "Fira Mono Nerd Font", weight = 400 },
     -- { family = "JetBrainsMonoNL", weight = 400 },
     -- { family = "IosevkaNerdFont", weight = 400 },
-    { family = "nonicons" } -- for the icons
+    -- { family = "nonicons" } -- for the icons
 }
 
 config.font_size = 17.3
 
 config.default_prog = {
-    "/bin/zsh",
+    "/run/current-system/sw/bin/zsh"
 }
 
 config.adjust_window_size_when_changing_font_size = false
@@ -54,8 +54,8 @@ config.window_padding = {
     bottom = 0,
 }
 
-local colorscheme = wezterm.get_builtin_color_schemes()["rose-pine"]
--- local colorscheme = wezterm.get_builtin_color_schemes()["tokyonight_moon"]
+-- local colorscheme = wezterm.get_builtin_color_schemes()["rose-pine"]
+local colorscheme = wezterm.get_builtin_color_schemes()["tokyonight_moon"]
 -- local colorscheme = wezterm.get_builtin_color_schemes()["Gruvbox dark, medium (base16)"]
 
 
