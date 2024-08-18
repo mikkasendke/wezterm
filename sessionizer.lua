@@ -54,7 +54,7 @@ module.toggle = function(window, pane)
         table.insert(projects, 2, { label = "Recent (" .. content .. ")", id = content })
     end
 
-    local success, stdout, stderr = wezterm.run_child_process({
+   local success, stdout, stderr = wezterm.run_child_process({
         fd_cmd,
         "-HI",
         "-td",
@@ -84,15 +84,18 @@ module.toggle = function(window, pane)
             wezterm.log_error("Tried using unknown trim_path_strategy: " .. project_path_trimming_strategy)
         end
 
-        if custom_entries_at_top then
-            table.insert(projects, { label = label, id = id })
-        else
-            local insert_id = (wezterm.GLOBAL.most_recent_workspace and 3 or 2)
-            table.insert(projects, insert_id, { label = label, id = id })
+        if project_path ~= "" then
+            if custom_entries_at_top then
+                table.insert(projects, { label = label, id = id })
+            else
+                local insert_id = (wezterm.GLOBAL.most_recent_workspace and 3 or 2)
+                table.insert(projects, insert_id, { label = label, id = id })
+            end
         end
     end
 
 
+    wezterm.log_info(projects);
     window:perform_action(
         act.InputSelector({
             action = wezterm.action_callback(function(win, _, id, label)
