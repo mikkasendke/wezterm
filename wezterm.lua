@@ -33,7 +33,7 @@ config.adjust_window_size_when_changing_font_size = false
 
 config.bold_brightens_ansi_colors = false
 
-
+config.hide_mouse_cursor_when_typing = false
 
 -- comment out if you want to have the tab bar
 config.enable_tab_bar = false
