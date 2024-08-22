@@ -18,7 +18,7 @@ config.font = wezterm.font_with_fallback {
     -- { family = "SF Mono", weight = 400 },
     -- { family = "RobotoMonoNerdFont", weight = 400 },
     -- { family = "Fira Mono Nerd Font", weight = 400 },
-    -- { family = "JetBrainsMonoNL", weight = 400 },
+    { family = "JetBrainsMonoNLNerdFont", weight = 400 },
     -- { family = "IosevkaNerdFont", weight = 400 },
     -- { family = "nonicons" } -- for the icons
 }
