@@ -54,7 +54,7 @@ module.toggle = function(window, pane)
         table.insert(projects, 2, { label = "Recent (" .. content .. ")", id = content })
     end
 
-   local success, stdout, stderr = wezterm.run_child_process({
+    local success, stdout, stderr = wezterm.run_child_process({
         fd_cmd,
         "-HI",
         "-td",

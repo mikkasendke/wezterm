@@ -43,24 +43,25 @@ config.tab_bar_at_bottom = true
 config.show_tab_index_in_tab_bar = true
 config.hide_tab_bar_if_only_one_tab = false
 config.show_new_tab_button_in_tab_bar = false
-config.tab_max_width = 24
+config.tab_max_width = 80
 
-config.window_decorations = "RESIZE"
+-- config.window_decorations = "RESIZE"
+config.window_decorations = "NONE"
 
 config.window_padding = {
-    left = 2,
+    left = 15,
     right = 0,
-    top = 0,
+    top = 15,
     bottom = 0,
 }
 
 -- local colorscheme = wezterm.get_builtin_color_schemes()["rose-pine"]
-local colorscheme = wezterm.get_builtin_color_schemes()["tokyonight_moon"]
--- local colorscheme = wezterm.get_builtin_color_schemes()["Gruvbox dark, medium (base16)"]
+-- local colorscheme = wezterm.get_builtin_color_schemes()["tokyonight_moon"]
+local colorscheme = wezterm.get_builtin_color_schemes()["GruvboxDark"]
 
 
--- colorscheme.background = wezterm.color.get_default_colors().background
-colorscheme.background = "161616"
+-- colorscheme.background = "191919"
+colorscheme.background = "1d1d1d"
 colorscheme.selection_bg = "555577"
 
 config.color_schemes = {
@@ -91,7 +92,8 @@ local function toggle_tab_bar(window)
     window:set_config_overrides(overrides)
 end
 
-local sessionizer = require("sessionizer")
+-- local sessionizer = require("sessionizer")
+
 
 config.disable_default_key_bindings = true
 
@@ -106,16 +108,16 @@ config.keys = {
         mods = "ALT|SHIFT",
         action = wezterm.action_callback(toggle_tab_bar),
     },
-    {
-        key = "s",
-        mods = "ALT",
-        action = wezterm.action_callback(sessionizer.toggle),
-    },
-    {
-        key = "m",
-        mods = "ALT",
-        action = wezterm.action_callback(sessionizer.goto_most_recent),
-    },
+    -- {
+    --     key = "s",
+    --     mods = "ALT",
+    --     action = wezterm.action_callback(sessionizer.toggle),
+    -- },
+    -- {
+    --     key = "m",
+    --     mods = "ALT",
+    --     action = wezterm.action_callback(sessionizer.goto_most_recent),
+    -- },
     -- full screen pane
     {
         key = "z",
@@ -332,6 +334,19 @@ config.keys = {
         mods = "ALT",
         action = wezterm.action.ActivateTabRelative(1),
     },
+}
+local sessionizer = wezterm.plugin.require "https://github.com/mikkasendke/sessionizer.wezterm"
+sessionizer.apply_to_config(config)
+local home_dir = os.getenv("HOME")
+local config_path = home_dir .. ("/.config")
+sessionizer.config.paths = home_dir .. "/dev"
+sessionizer.config.additional_directories = {
+    home_dir .. "/.nixos-config",
+    config_path,
+    config_path .. "/wezterm",
+    config_path .. "/nvim",
+    config_path .. "/sway",
+    config_path .. "/waybar",
 }
 
 return config
