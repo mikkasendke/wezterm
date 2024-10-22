@@ -56,8 +56,8 @@ config.window_padding = {
 }
 
 -- local colorscheme = wezterm.get_builtin_color_schemes()["rose-pine"]
--- local colorscheme = wezterm.get_builtin_color_schemes()["tokyonight_moon"]
-local colorscheme = wezterm.get_builtin_color_schemes()["GruvboxDark"]
+local colorscheme = wezterm.get_builtin_color_schemes()["tokyonight_moon"]
+-- local colorscheme = wezterm.get_builtin_color_schemes()["GruvboxDark"]
 
 
 -- colorscheme.background = "191919"
