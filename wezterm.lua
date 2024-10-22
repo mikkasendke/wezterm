@@ -339,9 +339,13 @@ local sessionizer = wezterm.plugin.require "https://github.com/mikkasendke/sessi
 sessionizer.apply_to_config(config)
 local home_dir = os.getenv("HOME")
 local config_path = home_dir .. ("/.config")
-sessionizer.config.paths = home_dir .. "/dev"
+sessionizer.config.paths = {
+    home_dir .. "/dev",
+    home_dir .. "/Uni"
+}
 sessionizer.config.additional_directories = {
     home_dir .. "/.nixos-config",
+    home_dir .. "/dev",
     config_path,
     config_path .. "/wezterm",
     config_path .. "/nvim",
