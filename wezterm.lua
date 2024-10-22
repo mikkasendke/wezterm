@@ -6,7 +6,7 @@ if wezterm.config_builder then
     config = wezterm.config_builder()
 end
 
--- config.unix_domains = {{ name = "unix" }}
+-- config.unix_domains = { { name = "unix" } }
 -- config.default_gui_startup_args = { "connect", "unix" }
 
 config.enable_wayland = true -- enabled by default
@@ -59,9 +59,9 @@ config.window_padding = {
 local colorscheme = wezterm.get_builtin_color_schemes()["tokyonight_moon"]
 -- local colorscheme = wezterm.get_builtin_color_schemes()["GruvboxDark"]
 
+colorscheme.background = "191919"
+-- colorscheme.background = "1d1d1d"
 
--- colorscheme.background = "191919"
-colorscheme.background = "1d1d1d"
 colorscheme.selection_bg = "555577"
 
 config.color_schemes = {
@@ -352,5 +352,12 @@ sessionizer.config.additional_directories = {
     config_path .. "/sway",
     config_path .. "/waybar",
 }
+-- sessionizer.display_entries = function(e, w, p)
+--     for i, v in pairs(e) do
+--         e[i].label = e[i].label .. "heheheha"
+--     end
+--     local cfg = require "sessionizer.config".get_effective_config(sessionizer.config)
+--     w:perform_action(require "sessionizer.input_selector".get(cfg, e), p)
+-- end
 
 return config
