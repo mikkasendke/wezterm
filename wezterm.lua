@@ -10,17 +10,21 @@ end
 -- config.default_gui_startup_args = { "connect", "unix" }
 
 config.enable_wayland = true -- enabled by default
-
 config.audible_bell = "Disabled"
 config.check_for_updates = false
 
+config.max_fps = 120 -- ignored anyway
+
 config.font = wezterm.font_with_fallback {
-    -- { family = "SF Mono", weight = 400 },
-    -- { family = "RobotoMonoNerdFont", weight = 400 },
+    -- { family = "SF Mono",                 weight = 400 },
+    -- { family = "RobotoMonoNerdFont",      weight = 400 },
     -- { family = "Fira Mono Nerd Font", weight = 400 },
     { family = "JetBrainsMonoNLNerdFont", weight = 400 },
+    -- { family = "Comic Mono",              weight = 400 },
+    -- { family = "Comic Shanns Mono Nerd Font Mono", weight = 400 },
     -- { family = "IosevkaNerdFont", weight = 400 },
     -- { family = "nonicons" } -- for the icons
+    { family = "Symbols Nerd Font" }
 }
 
 config.font_size = 17.3
@@ -33,7 +37,7 @@ config.adjust_window_size_when_changing_font_size = false
 
 config.bold_brightens_ansi_colors = false
 
-config.hide_mouse_cursor_when_typing = false
+config.hide_mouse_cursor_when_typing = true
 
 -- comment out if you want to have the tab bar
 config.enable_tab_bar = false
@@ -45,13 +49,15 @@ config.hide_tab_bar_if_only_one_tab = false
 config.show_new_tab_button_in_tab_bar = false
 config.tab_max_width = 80
 
--- config.window_decorations = "RESIZE"
-config.window_decorations = "NONE"
+config.window_decorations = "TITLE | RESIZE"
+-- config.window_decorations = "NONE"
 
 config.window_padding = {
     left = 15,
+    -- left = 0,
     right = 0,
     top = 15,
+    -- top = 0,
     bottom = 0,
 }
 
@@ -59,8 +65,10 @@ config.window_padding = {
 local colorscheme = wezterm.get_builtin_color_schemes()["tokyonight_moon"]
 -- local colorscheme = wezterm.get_builtin_color_schemes()["GruvboxDark"]
 
-colorscheme.background = "191919"
+-- colorscheme.background = "191919"
 -- colorscheme.background = "1d1d1d"
+colorscheme.background = "000000"
+-- colorscheme.background = "1f1f1f"
 
 colorscheme.selection_bg = "555577"
 
@@ -343,21 +351,45 @@ sessionizer.config.paths = {
     home_dir .. "/dev",
     home_dir .. "/Uni"
 }
+sessionizer.config.show_additional_before_paths = true
 sessionizer.config.additional_directories = {
-    home_dir .. "/.nixos-config",
-    home_dir .. "/dev",
-    config_path,
     config_path .. "/wezterm",
     config_path .. "/nvim",
     config_path .. "/sway",
     config_path .. "/waybar",
+    config_path .. "/ags",
+    config_path,
+    home_dir .. "/.nixos-config",
+    home_dir .. "/dev",
 }
--- sessionizer.display_entries = function(e, w, p)
---     for i, v in pairs(e) do
---         e[i].label = e[i].label .. "heheheha"
+
+-- sessionizer.use_entry_processor(function(entries, next)
+--     for i, entry in pairs(entries) do
+--         entry.label = wezterm.format {
+--             { Foreground = { Color = "Cyan" } },
+--             { Text = entry.label },
+--         }
 --     end
---     local cfg = require "sessionizer.config".get_effective_config(sessionizer.config)
---     w:perform_action(require "sessionizer.input_selector".get(cfg, e), p)
--- end
+--     next()
+-- end)
+
+-- --- @param entries { label: string, id: string }[]
+-- --- @param next function
+-- sessionizer.use_entry_processor(function(entries, next)
+--     for _, entry in pairs(entries) do
+--         entry.label = entry.label:gsub(home_dir, "~", 1)
+--     end
+--     next()
+-- end)
+---
+--- @param entries { label: string, id: string }[]
+--- @param next function
+-- sessionizer.use_entry_processor(function(entries, next)
+--     for _, entry in pairs(entries) do
+--         if entry.lab
+--     end
+--     next()
+-- end)
+
 
 return config
